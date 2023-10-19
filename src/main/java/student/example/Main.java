@@ -9,8 +9,24 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        String recruitingWebsiteURL = "https://www.delucru.md/jobs-java-junior"; 
-        String searchTerm = "java junior"; 
+        
+         String[] recruitingWebsiteURLs = {
+            "https://www.delucru.md/",
+            "https://www.rabota.md/ro/"
+            
+        };
+    
+        String searchTerm = "Java Junior Jobs";
+    
+        for (String url : recruitingWebsiteURLs) {
+            System.out.println("Scraping jobs from " + url);
+            scrapeJobs(url, searchTerm);
+        }
+
+
+    }
+        
+    private static void scrapeJobs(String recruitingWebsiteURL, String searchTerm){
 
         try {
             Document document = Jsoup.connect(recruitingWebsiteURL).get();
@@ -25,6 +41,8 @@ public class Main {
                     System.out.println("Position: " + jobTitle);
                     System.out.println("Description: " + jobDescription);
                     System.out.println("------------------------------");
+                }else {
+                    System.out.println("No jobs were found !!!");
                 }
                 
             }
@@ -33,4 +51,5 @@ public class Main {
             e.printStackTrace();
         }
     }
+    
 }
